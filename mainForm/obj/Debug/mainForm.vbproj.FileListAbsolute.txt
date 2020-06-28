@@ -1,0 +1,11 @@
+D:\VBProj\Invent\InventoryInOut\mainForm\bin\Debug\mainForm.exe.config
+D:\VBProj\Invent\InventoryInOut\mainForm\bin\Debug\mainForm.exe
+D:\VBProj\Invent\InventoryInOut\mainForm\bin\Debug\mainForm.pdb
+D:\VBProj\Invent\InventoryInOut\mainForm\bin\Debug\mainForm.xml
+D:\VBProj\Invent\InventoryInOut\mainForm\obj\Debug\mainForm.vbprojResolveAssemblyReference.cache
+D:\VBProj\Invent\InventoryInOut\mainForm\obj\Debug\mainForm.mainForm.resources
+D:\VBProj\Invent\InventoryInOut\mainForm\obj\Debug\mainForm.Resources.resources
+D:\VBProj\Invent\InventoryInOut\mainForm\obj\Debug\mainForm.vbproj.GenerateResource.Cache
+D:\VBProj\Invent\InventoryInOut\mainForm\obj\Debug\mainForm.exe
+D:\VBProj\Invent\InventoryInOut\mainForm\obj\Debug\mainForm.xml
+D:\VBProj\Invent\InventoryInOut\mainForm\obj\Debug\mainForm.pdb
