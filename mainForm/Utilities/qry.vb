@@ -9,155 +9,7 @@ Public Class qry
     Private f As New functions
     Public errMsg As String = ""
 
-    ''view Stock Dgv format
-    'Public Sub viewStockdgv_format()
-    '    With viewStock.dgvData
-    '        .AllowUserToResizeRows = False
-    '        .AllowUserToAddRows = False
-    '        .DataSource = SQL.DBDT
-    '        .ClearSelection()
-    '        .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-    '        .Columns(0).Visible = False
-
-    '        .Columns(1).HeaderText = "PD No."
-    '        .Columns(2).HeaderText = "Description"
-    '        .Columns(3).HeaderText = "Batch Code"
-    '        .Columns(4).HeaderText = "Location Code"
-    '        .Columns(5).HeaderText = "Quantity"
-
-    '        .Columns(1).SortMode = DataGridViewColumnSortMode.NotSortable
-    '        .Columns(2).SortMode = DataGridViewColumnSortMode.NotSortable
-    '        .Columns(3).SortMode = DataGridViewColumnSortMode.NotSortable
-    '        .Columns(4).SortMode = DataGridViewColumnSortMode.NotSortable
-    '        .Columns(5).SortMode = DataGridViewColumnSortMode.NotSortable
-
-    '        .Columns(0).Width = 10
-    '        .Columns(1).Width = 80
-    '        .Columns(2).Width = 230
-    '        .Columns(3).Width = 80
-    '        .Columns(4).Width = 150
-    '        .Columns(5).Width = 230
-    '    End With
-    'End Sub
-    '' end view Stock Dgv
-
-    ''Load Stock by PD
-    'Public Sub loadStockPDdgv(str As String)
-    '    SQL.AddParam("@pd", str)
-    '    SQL.ExecQueryDT("SELECT
-    '                     T0.prodDetNum " &
-    '                        ",T1.pdNum  " &
-    '                        ",T1.pdName " &
-    '                        ",T2.batchName " &
-    '                        ",T3.locName " &
-    '                        ",T0.pdQuantity " &
-    '                    "FROM tbl_productsDetails T0 " &
-    '                    "INNER JOIN tbl_products T1 ON T1.pdNum = T0.pdNum " &
-    '                    "LEFT JOIN tbl_batches T2 ON T2.batchID = T0.batchId " &
-    '                    "LEFT JOIN tbl_locations T3 ON T3.locID = T0.locId  WHERE T1.pdNum = @pd;  ")
-    '    If SQL.HasException(True) Then Exit Sub
-    '    viewStockdgv_format()
-    'End Sub
-    ''End Load Stock
-
-    ''Load Stock by Descrip
-    'Public Sub loadStockDescripdgv(str As String)
-    '    SQL.AddParam("@descrip", str)
-    '    SQL.ExecQueryDT("SELECT
-    '                     T0.prodDetNum " &
-    '                        ",T1.pdNum  " &
-    '                        ",T1.pdName " &
-    '                        ",T2.batchName " &
-    '                        ",T3.locName " &
-    '                        ",T0.pdQuantity " &
-    '                    "FROM tbl_productsDetails T0 " &
-    '                    "INNER JOIN tbl_products T1 ON T1.pdNum = T0.pdNum " &
-    '                    "LEFT JOIN tbl_batches T2 ON T2.batchID = T0.batchId " &
-    '                    "LEFT JOIN tbl_locations T3 ON T3.locID = T0.locId  WHERE T1.pdName LIKE CONCAT(@descrip,'%');  ")
-    '    If SQL.HasException(True) Then Exit Sub
-    '    viewStockdgv_format()
-    '    'SUM (T0.pdQuantity) OVER (PARTITION BY T1.pdNum  ORDER BY T0.prodDetNum) AS RunningAgeTotal
-    'End Sub
-    ''End Load Stock
-
-    ''Load Stock by Batch
-    'Public Sub loadStockBatchdgv(Optional str As String = "")
-    '    If str = "" Then
-    '        SQL.ExecQueryDT("SELECT
-    '                     T0.prodDetNum " &
-    '                        ",T1.pdNum  " &
-    '                        ",T1.pdName " &
-    '                        ",T2.batchName " &
-    '                        ",T3.locName " &
-    '                        ",T0.pdQuantity " &
-    '                    "FROM tbl_productsDetails T0 " &
-    '                    "INNER JOIN tbl_products T1 ON T1.pdNum = T0.pdNum " &
-    '                    "LEFT JOIN tbl_batches T2 ON T2.batchID = T0.batchId " &
-    '                    "LEFT JOIN tbl_locations T3 ON T3.locID = T0.locId  ORDER BY T2.batchName ASC;  ")
-    '        If SQL.HasException(True) Then Exit Sub
-    '    Else
-    '        SQL.ExecQueryDT(str)
-    '    End If
-    '    If SQL.HasException(True) Then Exit Sub
-    '    viewStockdgv_format()
-    'End Sub
-
-    'Public Sub loadStockBatchdgv_filter(fltr As String)
-    '    SQL.AddParam("@batch", fltr)
-    '    loadStockBatchdgv("SELECT
-    '                     T0.prodDetNum " &
-    '                        ",T1.pdNum  " &
-    '                        ",T1.pdName " &
-    '                        ",T2.batchName " &
-    '                        ",T3.locName " &
-    '                        ",T0.pdQuantity " &
-    '                    "FROM tbl_productsDetails T0 " &
-    '                    "INNER JOIN tbl_products T1 ON T1.pdNum = T0.pdNum " &
-    '                    "LEFT JOIN tbl_batches T2 ON T2.batchID = T0.batchId " &
-    '                    "LEFT JOIN tbl_locations T3 ON T3.locID = T0.locId  WHERE T2.batchName LIKE CONCAT(@batch,'%');  ")
-    'End Sub
-    ''End Load Stock
-
-
-    ''Load Stock by Location
-    'Public Sub loadStockLocdgv(Optional str As String = "")
-    '    If str = "" Then
-    '        SQL.ExecQueryDT("SELECT
-    '                     T0.prodDetNum " &
-    '                        ",T1.pdNum  " &
-    '                        ",T1.pdName " &
-    '                        ",T2.batchName " &
-    '                        ",T3.locName " &
-    '                        ",T0.pdQuantity " &
-    '                    "FROM tbl_productsDetails T0 " &
-    '                    "INNER JOIN tbl_products T1 ON T1.pdNum = T0.pdNum " &
-    '                    "LEFT JOIN tbl_batches T2 ON T2.batchID = T0.batchId " &
-    '                    "LEFT JOIN tbl_locations T3 ON T3.locID = T0.locId  ORDER BY T3.locName ASC;  ")
-    '    Else
-    '        SQL.ExecQueryDT(str)
-    '    End If
-    '    If SQL.HasException(True) Then Exit Sub
-    '    viewStockdgv_format()
-    'End Sub
-
-    'Public Sub loadStockLocdgv_filter(fltr As String)
-    '    SQL.AddParam("@loc", fltr)
-    '    loadStockLocdgv("SELECT
-    '                     T0.prodDetNum " &
-    '                        ",T1.pdNum  " &
-    '                        ",T1.pdName " &
-    '                        ",T2.batchName " &
-    '                        ",T3.locName " &
-    '                        ",T0.pdQuantity " &
-    '                    "FROM tbl_productsDetails T0 " &
-    '                    "INNER JOIN tbl_products T1 ON T1.pdNum = T0.pdNum " &
-    '                    "LEFT JOIN tbl_batches T2 ON T2.batchID = T0.batchId " &
-    '                    "LEFT JOIN tbl_locations T3 ON T3.locID = T0.locId  WHERE T3.locName LIKE CONCAT(@loc,'%');  ")
-    'End Sub
-    ''End Load Stock
-
-
-    'login
+    'sign in
     Public Sub signIn(user As String, pass As String)
 
         SQL.AddParam("@user", user)
@@ -834,6 +686,17 @@ Public Class qry
                 MsgBox(ex.Message)
             End Try
 
+        End With
+    End Sub
+    'end
+
+    'delete canced recv transaction
+    Public Sub deleteCancelledRecvTrans(t As String)
+        SQL.AddParam("@id", t)
+        SQL.ExecQueryDT("spDeleteRecvCancelledTransaction @transId = @id;")
+        If SQL.HasException(True) Then Exit Sub
+        With recvGoodsTrans
+            .transId = ""
         End With
     End Sub
     'end

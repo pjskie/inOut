@@ -394,4 +394,33 @@
             End If
         End If
     End Sub
+
+    Private Sub recvGoodsTrans_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        If transId = "" Then
+            Dim result As Integer = MessageBox.Show("Are you sure want to close?", "Notice", MessageBoxButtons.YesNo)
+            If result = DialogResult.No Then
+                e.Cancel = True
+            ElseIf result = DialogResult.Yes Then
+                e.Cancel = False
+                With mainForm
+                    .Select()
+                    .Focus()
+                End With
+            End If
+        ElseIf transId <> "" And dgvProdDet.RowCount <> 0 Then
+            Dim result As Integer = MessageBox.Show("Are you sure want to cancel?", "Notice", MessageBoxButtons.YesNo)
+            If result = DialogResult.No Then
+                e.Cancel = True
+            ElseIf result = DialogResult.Yes Then
+                e.Cancel = False
+                With mainForm
+                    .Select()
+                    .Focus()
+                End With
+                'delete this cancelled transc
+                q.deleteCancelledRecvTrans(transId)
+            End If
+        End If
+    End Sub
+
 End Class
