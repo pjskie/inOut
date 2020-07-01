@@ -43,16 +43,10 @@ Partial Class recvGoodsTrans
         Me.tbxPDno = New System.Windows.Forms.TextBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.lblError = New System.Windows.Forms.Label()
-        Me.lblPage = New System.Windows.Forms.Label()
         Me.dgvProdDet = New System.Windows.Forms.DataGridView()
-        Me.btnLast = New System.Windows.Forms.Button()
-        Me.btnPrevious = New System.Windows.Forms.Button()
-        Me.btnNext = New System.Windows.Forms.Button()
-        Me.cbxPagesize = New System.Windows.Forms.ComboBox()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.btnFirst = New System.Windows.Forms.Button()
+        Me.lblError = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.lblErrSenderName = New System.Windows.Forms.Label()
         Me.lblErrDocNum = New System.Windows.Forms.Label()
         Me.lblErrSender = New System.Windows.Forms.Label()
         Me.lblErrDocType = New System.Windows.Forms.Label()
@@ -69,7 +63,6 @@ Partial Class recvGoodsTrans
         Me.cbxRefDocType = New System.Windows.Forms.ComboBox()
         Me.tbxDocEntry = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.lblErrSenderName = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -284,15 +277,8 @@ Partial Class recvGoodsTrans
         '
         'GroupBox3
         '
-        Me.GroupBox3.Controls.Add(Me.lblError)
-        Me.GroupBox3.Controls.Add(Me.lblPage)
         Me.GroupBox3.Controls.Add(Me.dgvProdDet)
-        Me.GroupBox3.Controls.Add(Me.btnLast)
-        Me.GroupBox3.Controls.Add(Me.btnPrevious)
-        Me.GroupBox3.Controls.Add(Me.btnNext)
-        Me.GroupBox3.Controls.Add(Me.cbxPagesize)
-        Me.GroupBox3.Controls.Add(Me.Label7)
-        Me.GroupBox3.Controls.Add(Me.btnFirst)
+        Me.GroupBox3.Controls.Add(Me.lblError)
         Me.GroupBox3.Dock = System.Windows.Forms.DockStyle.Left
         Me.GroupBox3.Location = New System.Drawing.Point(3, 122)
         Me.GroupBox3.Name = "GroupBox3"
@@ -300,6 +286,23 @@ Partial Class recvGoodsTrans
         Me.GroupBox3.TabIndex = 1
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Details"
+        '
+        'dgvProdDet
+        '
+        Me.dgvProdDet.AllowUserToDeleteRows = False
+        Me.dgvProdDet.AllowUserToResizeRows = False
+        Me.dgvProdDet.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.dgvProdDet.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
+        Me.dgvProdDet.ColumnHeadersHeight = 40
+        Me.dgvProdDet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.dgvProdDet.EnableHeadersVisualStyles = False
+        Me.dgvProdDet.Location = New System.Drawing.Point(13, 26)
+        Me.dgvProdDet.Name = "dgvProdDet"
+        Me.dgvProdDet.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
+        Me.dgvProdDet.RowHeadersWidth = 40
+        Me.dgvProdDet.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvProdDet.Size = New System.Drawing.Size(886, 507)
+        Me.dgvProdDet.TabIndex = 13
         '
         'lblError
         '
@@ -311,81 +314,6 @@ Partial Class recvGoodsTrans
         Me.lblError.TabIndex = 12
         Me.lblError.Text = "*"
         Me.lblError.Visible = False
-        '
-        'lblPage
-        '
-        Me.lblPage.AutoSize = True
-        Me.lblPage.Location = New System.Drawing.Point(813, 537)
-        Me.lblPage.Name = "lblPage"
-        Me.lblPage.Size = New System.Drawing.Size(41, 20)
-        Me.lblPage.TabIndex = 21
-        Me.lblPage.Text = "Page"
-        '
-        'dgvProdDet
-        '
-        Me.dgvProdDet.AllowUserToAddRows = False
-        Me.dgvProdDet.AllowUserToDeleteRows = False
-        Me.dgvProdDet.AllowUserToResizeColumns = False
-        Me.dgvProdDet.AllowUserToResizeRows = False
-        Me.dgvProdDet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvProdDet.Location = New System.Drawing.Point(10, 26)
-        Me.dgvProdDet.Name = "dgvProdDet"
-        Me.dgvProdDet.Size = New System.Drawing.Size(889, 496)
-        Me.dgvProdDet.TabIndex = 0
-        '
-        'btnLast
-        '
-        Me.btnLast.Image = Global.mainForm.My.Resources.Resources.icons8_fast_forward_30
-        Me.btnLast.Location = New System.Drawing.Point(757, 533)
-        Me.btnLast.Name = "btnLast"
-        Me.btnLast.Size = New System.Drawing.Size(50, 28)
-        Me.btnLast.TabIndex = 22
-        Me.btnLast.UseVisualStyleBackColor = True
-        '
-        'btnPrevious
-        '
-        Me.btnPrevious.Image = Global.mainForm.My.Resources.Resources.icons8_sort_left_30
-        Me.btnPrevious.Location = New System.Drawing.Point(645, 533)
-        Me.btnPrevious.Name = "btnPrevious"
-        Me.btnPrevious.Size = New System.Drawing.Size(50, 28)
-        Me.btnPrevious.TabIndex = 20
-        Me.btnPrevious.UseVisualStyleBackColor = True
-        '
-        'btnNext
-        '
-        Me.btnNext.Image = Global.mainForm.My.Resources.Resources.icons8_sort_right_30
-        Me.btnNext.Location = New System.Drawing.Point(701, 533)
-        Me.btnNext.Name = "btnNext"
-        Me.btnNext.Size = New System.Drawing.Size(50, 28)
-        Me.btnNext.TabIndex = 21
-        Me.btnNext.UseVisualStyleBackColor = True
-        '
-        'cbxPagesize
-        '
-        Me.cbxPagesize.FormattingEnabled = True
-        Me.cbxPagesize.Items.AddRange(New Object() {"1", "5", "10", "20", "50", "100"})
-        Me.cbxPagesize.Location = New System.Drawing.Point(533, 533)
-        Me.cbxPagesize.Name = "cbxPagesize"
-        Me.cbxPagesize.Size = New System.Drawing.Size(50, 28)
-        Me.cbxPagesize.TabIndex = 18
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(455, 537)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(72, 20)
-        Me.Label7.TabIndex = 16
-        Me.Label7.Text = "Page Size"
-        '
-        'btnFirst
-        '
-        Me.btnFirst.Image = Global.mainForm.My.Resources.Resources.icons8_rewind_30
-        Me.btnFirst.Location = New System.Drawing.Point(589, 533)
-        Me.btnFirst.Name = "btnFirst"
-        Me.btnFirst.Size = New System.Drawing.Size(50, 28)
-        Me.btnFirst.TabIndex = 19
-        Me.btnFirst.UseVisualStyleBackColor = True
         '
         'GroupBox2
         '
@@ -413,6 +341,17 @@ Partial Class recvGoodsTrans
         Me.GroupBox2.TabIndex = 0
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Header"
+        '
+        'lblErrSenderName
+        '
+        Me.lblErrSenderName.AutoSize = True
+        Me.lblErrSenderName.ForeColor = System.Drawing.Color.Red
+        Me.lblErrSenderName.Location = New System.Drawing.Point(971, 27)
+        Me.lblErrSenderName.Name = "lblErrSenderName"
+        Me.lblErrSenderName.Size = New System.Drawing.Size(14, 20)
+        Me.lblErrSenderName.TabIndex = 32
+        Me.lblErrSenderName.Text = "*"
+        Me.lblErrSenderName.Visible = False
         '
         'lblErrDocNum
         '
@@ -468,18 +407,18 @@ Partial Class recvGoodsTrans
         Me.Label6.AutoSize = True
         Me.Label6.Location = New System.Drawing.Point(782, 27)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(96, 20)
+        Me.Label6.Size = New System.Drawing.Size(48, 20)
         Me.Label6.TabIndex = 10
-        Me.Label6.Text = "Sender Name:"
+        Me.Label6.Text = "Name:"
         '
         'Label5
         '
         Me.Label5.AutoSize = True
         Me.Label5.Location = New System.Drawing.Point(630, 27)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(57, 20)
+        Me.Label5.Size = New System.Drawing.Size(106, 20)
         Me.Label5.TabIndex = 9
-        Me.Label5.Text = "Sender:"
+        Me.Label5.Text = "Received From:"
         '
         'cbxSender
         '
@@ -558,17 +497,6 @@ Partial Class recvGoodsTrans
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Doc. Entry"
         '
-        'lblErrSenderName
-        '
-        Me.lblErrSenderName.AutoSize = True
-        Me.lblErrSenderName.ForeColor = System.Drawing.Color.Red
-        Me.lblErrSenderName.Location = New System.Drawing.Point(971, 27)
-        Me.lblErrSenderName.Name = "lblErrSenderName"
-        Me.lblErrSenderName.Size = New System.Drawing.Size(14, 20)
-        Me.lblErrSenderName.TabIndex = 32
-        Me.lblErrSenderName.Text = "*"
-        Me.lblErrSenderName.Visible = False
-        '
         'recvGoodsTrans
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -609,15 +537,7 @@ Partial Class recvGoodsTrans
     Friend WithEvents Label1 As Label
     Friend WithEvents GroupBox4 As GroupBox
     Friend WithEvents GroupBox3 As GroupBox
-    Friend WithEvents dgvProdDet As DataGridView
     Friend WithEvents btnSave As Button
-    Friend WithEvents lblPage As Label
-    Friend WithEvents btnLast As Button
-    Friend WithEvents btnPrevious As Button
-    Friend WithEvents btnNext As Button
-    Friend WithEvents cbxPagesize As ComboBox
-    Friend WithEvents Label7 As Label
-    Friend WithEvents btnFirst As Button
     Friend WithEvents lblError As Label
     Friend WithEvents tbxLoc As TextBox
     Friend WithEvents Label12 As Label
@@ -641,4 +561,5 @@ Partial Class recvGoodsTrans
     Friend WithEvents lblErrSender As Label
     Friend WithEvents lblErrDocType As Label
     Friend WithEvents lblErrSenderName As Label
+    Friend WithEvents dgvProdDet As DataGridView
 End Class

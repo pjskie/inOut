@@ -53,6 +53,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -75,10 +76,16 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Areas\addArreas.Designer.vb">
-      <DependentUpon>addArreas.vb</DependentUpon>
+    <Compile Include="Areas\addAreas.Designer.vb">
+      <DependentUpon>addAreas.vb</DependentUpon>
     </Compile>
-    <Compile Include="Areas\addArreas.vb">
+    <Compile Include="Areas\addAreas.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Areas\AreaMain.Designer.vb">
+      <DependentUpon>AreaMain.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\AreaMain.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Batch\addBatch.Designer.vb">
@@ -87,16 +94,46 @@
     <Compile Include="Batch\addBatch.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Batch\BatchesMain.Designer.vb">
+      <DependentUpon>BatchesMain.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Batch\BatchesMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="DocumentTypes\addDocTypes.Designer.vb">
       <DependentUpon>addDocTypes.vb</DependentUpon>
     </Compile>
     <Compile Include="DocumentTypes\addDocTypes.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="DocumentTypes\docTypesMain.Designer.vb">
+      <DependentUpon>docTypesMain.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DocumentTypes\docTypesMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Employees\employeeAdd.Designer.vb">
+      <DependentUpon>employeeAdd.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Employees\employeeAdd.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Employees\employees.Designer.vb">
+      <DependentUpon>employees.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Employees\employees.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Location\addLocation.Designer.vb">
       <DependentUpon>addLocation.vb</DependentUpon>
     </Compile>
     <Compile Include="Location\addLocation.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Location\locationMain.Designer.vb">
+      <DependentUpon>locationMain.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Location\locationMain.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="loginForm.Designer.vb">
@@ -139,6 +176,18 @@
     <Compile Include="releaseGoods\relsGoodsTrans.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Users\UserAdd.Designer.vb">
+      <DependentUpon>UserAdd.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Users\UserAdd.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Users\userMain.Designer.vb">
+      <DependentUpon>userMain.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Users\userMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Utilities\dgvPaging.vb" />
     <Compile Include="Utilities\functions.vb" />
     <Compile Include="Utilities\qry.vb" />
@@ -151,17 +200,35 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Areas\addArreas.resx">
-      <DependentUpon>addArreas.vb</DependentUpon>
+    <EmbeddedResource Include="Areas\addAreas.resx">
+      <DependentUpon>addAreas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\AreaMain.resx">
+      <DependentUpon>AreaMain.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Batch\addBatch.resx">
       <DependentUpon>addBatch.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Batch\BatchesMain.resx">
+      <DependentUpon>BatchesMain.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DocumentTypes\addDocTypes.resx">
       <DependentUpon>addDocTypes.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DocumentTypes\docTypesMain.resx">
+      <DependentUpon>docTypesMain.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Employees\employeeAdd.resx">
+      <DependentUpon>employeeAdd.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Employees\employees.resx">
+      <DependentUpon>employees.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Location\addLocation.resx">
       <DependentUpon>addLocation.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Location\locationMain.resx">
+      <DependentUpon>locationMain.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="loginForm.resx">
       <DependentUpon>loginForm.vb</DependentUpon>
@@ -180,6 +247,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="releaseGoods\relsGoodsTrans.resx">
       <DependentUpon>relsGoodsTrans.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Users\UserAdd.resx">
+      <DependentUpon>UserAdd.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Users\userMain.resx">
+      <DependentUpon>userMain.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ViewStock\viewStocks.resx">
       <DependentUpon>viewStocks.vb</DependentUpon>

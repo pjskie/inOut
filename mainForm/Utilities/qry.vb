@@ -94,7 +94,7 @@ Public Class qry
                         WHERE areaDes = @txt;")
         If SQL.HasException(True) Then Exit Sub
         If SQL.RecordCountDT > 0 Then
-            With addArreas
+            With addAreas
                 .lblError.Visible = True
                 .lblError.ForeColor = Color.Red
                 .lblError.Text = "Already exist"
@@ -107,7 +107,7 @@ Public Class qry
             SQL.ExecQueryDT("INSERT INTO [dbo].[tbl_areaCodes]
                              VALUES (@txt,@encBy);")
             If SQL.HasException(True) Then Exit Sub
-            With addArreas
+            With addAreas
                 .lblError.Visible = True
                 .lblError.ForeColor = Color.Green
                 .lblError.Text = "Successfully Added!"
@@ -382,94 +382,69 @@ Public Class qry
     'end
 
     'add Receive Details
-    Public Sub addTransDetails(g As String, b As String, l As String, a As String, q As String, h As String)
-        If h = "" Then
-            SQL.AddParam("@g", g)
-            SQL.AddParam("@b", b)
-            SQL.AddParam("@l", l)
-            SQL.AddParam("@a", a)
-            SQL.AddParam("@q", q)
-            SQL.AddParam("@h", h)
-            SQL.ExecQueryDT("DECLARE @op INT
-                        EXEC spInsertRecvGoodsDetails @goodId = @g , @batchId = @b, @locId = @l , @areaId = @a, @qty = @q, @headerId = @h, @id = @op OUTPUT
-                        SELECT @op;")
-            If SQL.HasException(True) Then Exit Sub
-            If SQL.RecordCountDT > 0 Then
-                For Each r As DataRow In SQL.DBDT.Rows
-                    With recvGoodsTrans
-                        .transId = ""
-                        .transId = r(0)
-                        .tbxDocEntry.Text = r(0)
-                    End With
-                Next
-            End If
-        ElseIf h <> "" Then
-            SQL.AddParam("@g", g)
-            SQL.AddParam("@b", b)
-            SQL.AddParam("@l", l)
-            SQL.AddParam("@a", a)
-            SQL.AddParam("@q", q)
-            SQL.AddParam("@h", h)
-            SQL.ExecQueryDT("DECLARE @op INT
-                        EXEC spInsertRecvGoodsDetails @goodId = @g , @batchId = @b, @locId = @l , @areaId = @a, @qty = @q, @headerId = @h, @id = @op OUTPUT
-                        SELECT @op;")
-            If SQL.HasException(True) Then Exit Sub
-        Else
-
-        End If
-
+    Public Sub addTransDetailsforUnqHeader()
+        SQL.ExecQueryDT("DECLARE @getId AS INT 
+                            EXEC spInsertTransRecvHeader @id = @getId OUTPUT
+                            SELECT @getId")
+        If SQL.HasException(True) Then Exit Sub
+        For Each r As DataRow In SQL.DBDT.Rows
+            With recvGoodsTrans
+                .transId = r(0)
+                .tbxDocEntry.Text = r(0)
+            End With
+        Next
     End Sub
     'end
 
     'load data grid view of product details
-    Public Sub loadProdDGV(t As String, Optional query As String = "")
-        If query = "" Then
-            SQL.AddParam("@t", t)
-            SQL.ExecQueryDT("spSelectRecvGoodsDetails @t;")
-        Else
-            SQL.ExecQueryDT(query)
-        End If
-        If SQL.HasException(True) Then Exit Sub
-        With recvGoodsTrans.dgvProdDet
-            .AllowUserToResizeColumns = False
-            .AllowUserToResizeRows = False
-            .AllowUserToAddRows = False
-            .AllowUserToOrderColumns = False
-            .ReadOnly = True
-            .DataSource = SQL.DBDT
-            .ClearSelection()
-            .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-            .Columns(0).Visible = False
-            .Columns(1).HeaderText = "PD NO."
-            .Columns(2).HeaderText = "DESCRIPTION"
-            .Columns(3).HeaderText = "BATCH NAME"
-            .Columns(4).HeaderText = "LOCATION NAME"
-            .Columns(5).HeaderText = "AREA"
-            .Columns(6).HeaderText = "QUANTITY"
-            .Columns(1).SortMode = DataGridViewColumnSortMode.NotSortable
-            .Columns(2).SortMode = DataGridViewColumnSortMode.NotSortable
-            .Columns(3).SortMode = DataGridViewColumnSortMode.NotSortable
-            .Columns(4).SortMode = DataGridViewColumnSortMode.NotSortable
-            .Columns(5).SortMode = DataGridViewColumnSortMode.NotSortable
-            .Columns(6).SortMode = DataGridViewColumnSortMode.NotSortable
-            .Columns(1).Width = 30
-            .Columns(2).Width = 100
-            .Columns(3).Width = 50
-            .Columns(4).Width = 50
-            .Columns(5).Width = 30
-            .Columns(6).Width = 90
-            .RowTemplate.Height = 30
-            ' Set the background color for all rows And for alternating rows. 
-            'The value for alternating rows overrides the value for all rows. 
-            .RowsDefaultCellStyle.BackColor = Color.LightGray
-            .AlternatingRowsDefaultCellStyle.BackColor = Color.White
+    'Public Sub loadProdDGV(t As String, Optional query As String = "")
+    '    If query = "" Then
+    '        SQL.AddParam("@t", t)
+    '        SQL.ExecQueryDT("spSelectRecvGoodsDetails @t;")
+    '    Else
+    '        SQL.ExecQueryDT(query)
+    '    End If
+    '    If SQL.HasException(True) Then Exit Sub
+    '    With recvGoodsTrans.dgvProdDet
+    '        .AllowUserToResizeColumns = False
+    '        .AllowUserToResizeRows = False
+    '        .AllowUserToAddRows = False
+    '        .AllowUserToOrderColumns = False
+    '        .ReadOnly = True
+    '        .DataSource = SQL.DBDT
+    '        .ClearSelection()
+    '        .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+    '        .Columns(0).Visible = False
+    '        .Columns(1).HeaderText = "PD NO."
+    '        .Columns(2).HeaderText = "DESCRIPTION"
+    '        .Columns(3).HeaderText = "BATCH NAME"
+    '        .Columns(4).HeaderText = "LOCATION NAME"
+    '        .Columns(5).HeaderText = "AREA"
+    '        .Columns(6).HeaderText = "QUANTITY"
+    '        .Columns(1).SortMode = DataGridViewColumnSortMode.NotSortable
+    '        .Columns(2).SortMode = DataGridViewColumnSortMode.NotSortable
+    '        .Columns(3).SortMode = DataGridViewColumnSortMode.NotSortable
+    '        .Columns(4).SortMode = DataGridViewColumnSortMode.NotSortable
+    '        .Columns(5).SortMode = DataGridViewColumnSortMode.NotSortable
+    '        .Columns(6).SortMode = DataGridViewColumnSortMode.NotSortable
+    '        .Columns(1).Width = 30
+    '        .Columns(2).Width = 100
+    '        .Columns(3).Width = 50
+    '        .Columns(4).Width = 50
+    '        .Columns(5).Width = 30
+    '        .Columns(6).Width = 90
+    '        .RowTemplate.Height = 30
+    '        ' Set the background color for all rows And for alternating rows. 
+    '        'The value for alternating rows overrides the value for all rows. 
+    '        .RowsDefaultCellStyle.BackColor = Color.LightGray
+    '        .AlternatingRowsDefaultCellStyle.BackColor = Color.White
 
-            'Set the row and column header styles.
-            .ColumnHeadersDefaultCellStyle.ForeColor = Color.White
-            .ColumnHeadersDefaultCellStyle.BackColor = Color.Gray
-            .RowHeadersDefaultCellStyle.BackColor = Color.Black
-        End With
-    End Sub
+    '        'Set the row and column header styles.
+    '        .ColumnHeadersDefaultCellStyle.ForeColor = Color.White
+    '        .ColumnHeadersDefaultCellStyle.BackColor = Color.Gray
+    '        .RowHeadersDefaultCellStyle.BackColor = Color.Black
+    '    End With
+    'End Sub
     'end
 
     'delete from dgv product details
@@ -483,72 +458,107 @@ Public Class qry
 
 
     'update transaction recv header along with the recv details
-    Public Sub addRecvTransactions(dt As String, drn As String, dd As Date, org As String, orgn As String, eb As String, trnsId As String)
+    Public Sub addRecvTransactions(t As String, dd As Date, dt As String, drn As String, rf As String, frmn As String, ai As String)
         Dim goodId As String
         Dim batchId As String
         Dim locId As String
         Dim areaId As String
         Dim qty As Integer
 
+        SQL.AddParam("@tId", t)
+        SQL.AddParam("@dd", dd)
         SQL.AddParam("@dt", dt)
         SQL.AddParam("@drn", drn)
-        SQL.AddParam("@dd", dd)
-        SQL.AddParam("@org", org)
-        SQL.AddParam("@orgn", orgn)
-        SQL.AddParam("@eb", eb)
-        SQL.AddParam("@id", trnsId)
-        SQL.ExecQueryDT("spAddRecvTransHeader @docType = @dt, @docNum = @drn, @docDate = @dd, @sender= @org, @senderName= @orgn, @encBy = @eb, @transId = @id;")
+        SQL.AddParam("@rf", rf)
+        SQL.AddParam("@frmn", frmn)
+        SQL.AddParam("@ai", ai)
+        'update table transRecvheader
+        SQL.ExecQueryDT("EXEC spFinalUpdateforTransHeader
+	                        @docType = @dt
+	                        ,@docRefNum = @drn
+	                        ,@docrefDate = @dd
+	                        ,@orgId = @rf
+	                        ,@orgName = @frmn
+	                        ,@encBy = @ai
+	                        ,@transId = @tId;")
         If SQL.HasException(True) Then Exit Sub
+        'end
+        'insert data in table transRecvDetails
+        With recvGoodsTrans.dgvProdDet
+            For i As Integer = 0 To .Rows.Count - 1 Step +1
+                SQL.AddParam("@tId", t)
+                SQL.AddParam("@gId", .Rows(i).Cells(1).Value.ToString)
+                SQL.AddParam("@bId", .Rows(i).Cells(3).Value.ToString)
+                SQL.AddParam("@lId", .Rows(i).Cells(4).Value.ToString)
+                SQL.AddParam("@aId", ai)
+                SQL.AddParam("@qty", .Rows(i).Cells(8).Value.ToString)
 
-        SQL.AddParam("@id", trnsId)
-        SQL.ExecQueryDT("SELECT * FROM tbl_transRecvDetails WHERE trans_id = @id;")
+                SQL.ExecQueryDT("EXEC spADDTransRECVDetails
+	                                @transId = @tId
+	                                ,@gId = @gId
+	                                ,@bId = @bId
+	                                ,@lId = @lId
+	                                ,@aId = @aId
+	                                ,@qty = @qty;")
+                If SQL.HasException(True) Then Exit Sub
+            Next
+        End With
+        'end
+        'selecting table transRecvDetails
+        SQL.AddParam("@tId", t)
+        SQL.ExecQueryDT("EXEC spSelectRECVTransDet @transId = @tId;")
         If SQL.HasException(True) Then Exit Sub
-        If SQL.RecordCountDT > 0 Then
+        If SQL.RecordCountDT <> 0 Then
             For Each r As DataRow In SQL.DBDT.Rows
                 goodId = r("good_id")
                 batchId = r("batch_id")
                 locId = r("loc_id")
                 areaId = r("area_id")
                 qty = r("qty")
-                SQL.AddParam("@gid", goodId)
-                SQL.AddParam("@bid", batchId)
-                SQL.AddParam("@lid", locId)
-                SQL.AddParam("@aid", areaId)
-                'SQL.AddParam("@qty", qty)
-                SQL.ExecQueryDT("SELECT * FROM tbl_products
-                                WHERE good_id = @gid
-                                AND batch_id = @bid
-                                AND loc_id = @lid
-                                AND area_id = @aid;")
+                SQL.AddParam("@gId", goodId)
+                SQL.AddParam("@bId", batchId)
+                SQL.AddParam("@lId", locId)
+                SQL.AddParam("@aId", areaId)
+                SQL.AddParam("@qty", qty)
+                SQL.ExecQueryDT("EXEC spSELECTProducts
+	                                @gId = @gId
+	                                ,@bId = @bId
+	                                ,@lId = @lId
+	                                ,@aId = @aId;")
                 If SQL.HasException(True) Then Exit Sub
                 If SQL.RecordCountDT <> 0 Then
-                    'update
-                    SQL.AddParam("@gid", goodId)
-                    SQL.AddParam("@bid", batchId)
-                    SQL.AddParam("@lid", locId)
-                    SQL.AddParam("@aid", areaId)
+                    'update in the parameters are existing in tbl products
+                    SQL.AddParam("@gId", goodId)
+                    SQL.AddParam("@bId", batchId)
+                    SQL.AddParam("@lId", locId)
+                    SQL.AddParam("@aId", areaId)
                     SQL.AddParam("@qty", qty)
-                    SQL.ExecQueryDT("UPDATE tbl_products
-                                        SET qty = qty + @qty
-                                        WHERE good_id = @gid
-                                        AND batch_id = @bid
-                                        AND loc_id = @lid
-                                        AND area_id = @aid;")
+                    SQL.ExecQueryDT("EXEC spUPDATEProducts
+	                                            @gId = @gId
+	                                            ,@bId = @bId
+	                                            ,@lId = @lId
+	                                            ,@aId = @aId
+	                                            ,@qty = @qty;")
                     If SQL.HasException(True) Then Exit Sub
-                ElseIf sql.RecordCountDT = 0 Then
-                    'insert
-                    SQL.AddParam("@gid", goodId)
-                    SQL.AddParam("@bid", batchId)
-                    SQL.AddParam("@lid", locId)
-                    SQL.AddParam("@aid", areaId)
+                ElseIf SQL.RecordCountDT = 0 Then
+                    'insert in the parameters are NOT existing in tbl products
+                    SQL.AddParam("@gId", goodId)
+                    SQL.AddParam("@bId", batchId)
+                    SQL.AddParam("@lId", locId)
+                    SQL.AddParam("@aId", areaId)
                     SQL.AddParam("@qty", qty)
-                    SQL.ExecQueryDT("INSERT INTO tbl_products
-                                VALUES (@gid,@bid,@lid,@aid,@qty);")
+                    SQL.ExecQueryDT("EXEC spINSERTProducts 
+		                                        @gId =  @gId
+		                                        ,@bId = @bId
+		                                        ,@lId = @lId
+		                                        ,@aId = @aId
+		                                        ,@qty = @qty;")
                     If SQL.HasException(True) Then Exit Sub
                 End If
             Next
-            MessageBox.Show("Successfully Added", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
+        'end
+        MessageBox.Show("Successfully Added.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
     'end
 

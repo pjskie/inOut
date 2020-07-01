@@ -40,9 +40,13 @@ Public Class mainForm
     End Sub
 
     Private Sub ReceiveGoodsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReceiveGoodsToolStripMenuItem.Click
-        closeForms()
-        recvGoodsTrans.MdiParent = Me
-        recvGoodsTrans.Show()
+        Try
+            closeForms()
+            recvGoodsTrans.MdiParent = Me
+            recvGoodsTrans.Show()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
     Private Sub mainform_FormClosing(sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
@@ -77,8 +81,8 @@ Public Class mainForm
 
     Private Sub AddToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles AddToolStripMenuItem2.Click
         closeForms()
-        addArreas.MdiParent = Me
-        addArreas.Show()
+        addAreas.MdiParent = Me
+        addAreas.Show()
     End Sub
 
     Private Sub AddToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles AddToolStripMenuItem3.Click

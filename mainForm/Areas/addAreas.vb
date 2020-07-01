@@ -1,4 +1,4 @@
-﻿Public Class addArreas
+﻿Public Class addAreas
     Private q As New qry
 
     Private Sub areas_Load(sender As Object, e As EventArgs) Handles Me.Load

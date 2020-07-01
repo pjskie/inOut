@@ -5,11 +5,8 @@
     Private selectedId As String = ""
 
     Private Sub loadDGVNonFilter()
-        'q.employeesLoadDGV()
-        'q.loadProdDGV(transId)
         q.loadStocksDGV()
         dgvStocks.ClearSelection()
-        'prodId = ""
         'for adjusting data to display
         dtSource = q.SQL.DBDT
         p.fillDgv(cbxPagesize.Text, dtSource)
@@ -26,12 +23,8 @@
     End Sub
 
     Private Sub loadDGVFilter()
-        'q.employeesLoadDGV()
-        'q.loadProdDGV(transId)
-        'q.loadStocksDGV()
         q.loadStocksDGVFilter(tbxFilter.Text)
         dgvStocks.ClearSelection()
-        'prodId = ""
         'for adjusting data to display
         dtSource = q.SQL.DBDT
         p.fillDgv(cbxPagesize.Text, dtSource)
@@ -79,8 +72,6 @@
         End If
     End Sub
     Public Sub loadDataGridView()
-        'q.loadProdDGV()
-        'txtFilter.Text = ""
         dgvStocks.ClearSelection()
         adjustDGv()
     End Sub

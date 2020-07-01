@@ -1,7 +1,9 @@
-﻿Public Class recvGoodsTrans
+﻿Imports System.Data.DataTable
+
+Public Class recvGoodsTrans
     Private q As New qry
     Private p As New dgvPaging
-    Private dtSource As DataTable
+    Private table As New DataTable("Table")
     'hold the id of the details 
     Public prodId As String = ""
     'hold the batch id
@@ -14,11 +16,13 @@
     Public docTypeId As String = ""
     'hold the sender Id
     Public senderId As String = ""
-
+    'hold the selectedId 
+    Private selectedRowCell As Integer = 0
 
     'form load
     Private Sub recvGoodsTrans_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        cbxPagesize.SelectedIndex = 2 'set page size to 10
+        newDGV()
+        'cbxPagesize.SelectedIndex = 2 'set page size to 10
         tbxDocEntry.Text = "" 'set temporarily doc entry as 000
         loadTbxBatch() 'autosuggest tbx batch
         loadTbxLoc() 'autosugget tbx loc
@@ -53,93 +57,7 @@
         End If
     End Sub
 
-    '=====================================================================================================
-    'FOR the DATAGRID VIEW
-
-    'Clicking the dgv
-    Private Sub dgvProdDet_click(ByVal sender As Object, ByVal e As EventArgs) Handles dgvProdDet.Click
-        lblError.Visible = False
-        If dgvProdDet.Rows.Count = 0 Then
-            MessageBox.Show("No data found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        Else
-            If dgvProdDet.SelectedRows.Count > 0 Then
-                prodId = ""
-                prodId = dgvProdDet.CurrentRow.Cells(0).Value
-                'MsgBox(Me.prodId)
-
-            End If
-        End If
-    End Sub
-    Private Sub dgvProdDet_CellFormatting(ByVal sender As Object, ByVal e As DataGridViewCellFormattingEventArgs)
-        Me.dgvProdDet.RowsDefaultCellStyle.BackColor = Color.White
-        Me.dgvProdDet.AlternatingRowsDefaultCellStyle.BackColor = Color.FromKnownColor(KnownColor.Control)
-    End Sub
-
-    Private Sub dgvProdDet_DataBindingComplete(ByVal sender As Object, ByVal e As DataGridViewBindingCompleteEventArgs)
-        dgvProdDet.ClearSelection()
-
-        If dgvProdDet.Rows.Count > 0 Then
-            lblError.Text = ""
-        Else
-            lblError.Text = "No results found..."
-        End If
-    End Sub
-    Public Sub loadDataGridView()
-        'q.loadProdDGV()
-        'txtFilter.Text = ""
-        dgvProdDet.ClearSelection()
-        adjustDGv()
-    End Sub
-    Public Sub adjustDGv()
-        'for adjusting data to display
-        dtSource = q.SQL.DBDT
-        p.fillDgv(cbxPagesize.Text, dtSource)
-        p.LoadPage(dtSource, dgvProdDet, cbxPagesize.Text)
-        p.DisplayPageInfo(lblPage)
-
-        If p.PageCount = 1 Then
-            btnNext.Enabled = False
-            btnLast.Enabled = False
-        Else
-            btnNext.Enabled = True
-            btnLast.Enabled = True
-        End If
-    End Sub
-    'for Paging
-    Private Sub btnFirst_Click(sender As Object, e As EventArgs) Handles btnFirst.Click
-        dtSource = q.SQL.DBDT
-        p.tofirstpage(dtSource, dgvProdDet, cbxPagesize.Text)
-        p.DisplayPageInfo(lblPage)
-    End Sub
-
-    Private Sub btnPrevious_Click(sender As Object, e As EventArgs) Handles btnPrevious.Click
-        dtSource = q.SQL.DBDT
-        p.previouspage(dtSource, dgvProdDet, cbxPagesize.Text)
-        p.DisplayPageInfo(lblPage)
-    End Sub
-
-    Private Sub btnNext_Click(sender As Object, e As EventArgs) Handles btnNext.Click
-        dtSource = q.SQL.DBDT
-        p.nextpage(dtSource, dgvProdDet, cbxPagesize.Text)
-        p.DisplayPageInfo(lblPage)
-    End Sub
-
-    Private Sub btnLast_Click(sender As Object, e As EventArgs) Handles btnLast.Click
-        dtSource = q.SQL.DBDT
-        p.tolastpage(dtSource, dgvProdDet, cbxPagesize.Text)
-        p.DisplayPageInfo(lblPage)
-    End Sub
-
-    'End Paging
-    '------------------------------------------------------------
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        'If dgvProdDet.Rows.Count = 0 And String.IsNullOrWhiteSpace(tbxDocEntry.Text) Then
-        '    'MsgBox("LALALA")
-        '    btnSave.Select()
-        'Else
-        '    'MsgBox("LULU")
-        'End If
         If transId <> "" And dgvProdDet.Rows.Count <> 0 Then
             If cbxRefDocType.SelectedIndex = -1 Or cbxSender.SelectedIndex = -1 Or tbxSenderName.Text = "" Or tbxRefDocNum.Text = "" Then
                 lblError.Visible = True
@@ -175,7 +93,9 @@
                 lblErrSender.Visible = False
                 lblErrDocType.Visible = False
                 'MsgBox("Add this one")
-                q.addRecvTransactions(docTypeId, tbxRefDocNum.Text, dtpDocDate.Value, senderId, tbxSenderName.Text, mainForm.userId, Me.transId)
+                'q.addRecvTransactions(docTypeId, tbxRefDocNum.Text, dtpDocDate.Value, senderId, tbxSenderName.Text, mainForm.userId, Me.transId)
+                q.addRecvTransactions(transId, dtpDocDate.Value, docTypeId, tbxRefDocNum.Text, senderId, tbxSenderName.Text, mainForm.areaCodeId)
+                table.Clear()
                 Me.transId = ""
                 dtpDocDate.Value = Now()
                 cbxRefDocType.SelectedIndex = -1
@@ -185,18 +105,12 @@
                 tbxDocEntry.Text = ""
                 tbxRefDocNum.Text = ""
                 tbxSenderName.Text = ""
-                loadDGV()
             End If
-        ElseIf transId = "" And dgvProdDet.rows.Count = 0 Then
+        ElseIf transId = "" And dgvProdDet.Rows.Count = 0 Then
             MessageBox.Show("Input Valid Data.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             lblError.Visible = True
             lblError.Text = "Select Product First!"
             tbxPDno.Select()
-            lblError.Visible = True
-            lblErrDocNum.Visible = True
-            lblErrSenderName.Visible = True
-            lblErrSender.Visible = True
-            lblErrDocType.Visible = True
             Exit Sub
         Else
 
@@ -260,11 +174,10 @@
     End Sub
 
     Private Sub btnAddProdtoDgv_Click(sender As Object, e As EventArgs) Handles btnAddProdtoDgv.Click
-        If String.IsNullOrWhiteSpace(tbxDocEntry.Text) Then
-            'empty tbx document and datagrid view
+        If String.IsNullOrWhiteSpace(tbxDocEntry.Text) And transId = "" Then
             If String.IsNullOrWhiteSpace(tbxPDno.Text) Or String.IsNullOrWhiteSpace(tbxLoc.Text) Or String.IsNullOrWhiteSpace(tbxQty.Text) Then
                 lblError.Text = "Fields with '*' are required!"
-
+                lblError.Visible = True
                 If String.IsNullOrWhiteSpace(tbxPDno.Text) Then
                     lblErrorPDNum.Visible = True
                 Else
@@ -282,58 +195,52 @@
                 Else
                     lblErrQty.Visible = False
                 End If
+            ElseIf tbxQty.Text = 0 Then
+                tbxQty.Clear()
             Else
-                lblError.Visible = False
-                lblErrorPDNum.Visible = False
-                lblErrLoc.Visible = False
-                lblErrQty.Visible = False
-                q.addTransDetails(tbxPDno.Text, batchId, locId, mainForm.areaCodeId, tbxQty.Text, Me.transId)
+                hideAllErrLbls()
+                q.addTransDetailsforUnqHeader()
+                insertRecvTransToDGV()
+                'MsgBox("Add this one")
+                'insertRecvTransToDGV()
                 tbxPDno.Text = ""
                 tbxBatch.Text = ""
                 tbxLoc.Text = ""
                 tbxQty.Text = ""
-                tbxPDno.Select()
-                loadDGV()
             End If
-
-        ElseIf Me.transId <> "" Then
-            'not empty tbx document and datagridview
+        ElseIf Not String.IsNullOrWhiteSpace(tbxDocEntry.Text) And transId <> "" Then
             If String.IsNullOrWhiteSpace(tbxPDno.Text) Or String.IsNullOrWhiteSpace(tbxLoc.Text) Or String.IsNullOrWhiteSpace(tbxQty.Text) Then
                 lblError.Text = "Fields with '*' are required!"
-                tbxPDno.Select()
+                lblError.Visible = True
                 If String.IsNullOrWhiteSpace(tbxPDno.Text) Then
                     lblErrorPDNum.Visible = True
-                    tbxPDno.Select()
                 Else
                     lblErrorPDNum.Visible = False
                 End If
 
                 If String.IsNullOrWhiteSpace(tbxLoc.Text) Then
                     lblErrLoc.Visible = True
-                    tbxLoc.Select()
                 Else
                     lblErrLoc.Visible = False
                 End If
 
                 If String.IsNullOrWhiteSpace(tbxQty.Text) Then
                     lblErrQty.Visible = True
-                    tbxQty.Select()
                 Else
                     lblErrQty.Visible = False
                 End If
+            ElseIf tbxQty.Text = 0 Then
+                tbxQty.Clear()
             Else
-                lblError.Visible = False
-                lblErrorPDNum.Visible = False
-                lblErrLoc.Visible = False
-                lblErrQty.Visible = False
-                q.addTransDetails(tbxPDno.Text, batchId, locId, mainForm.areaCodeId, tbxQty.Text, Me.transId)
+                hideAllErrLbls()
+                insertRecvTransToDGV()
                 tbxPDno.Text = ""
                 tbxBatch.Text = ""
                 tbxLoc.Text = ""
                 tbxQty.Text = ""
-                tbxPDno.Select()
-                loadDGV()
             End If
+        Else
+            'do nothing
         End If
     End Sub
 
@@ -342,6 +249,12 @@
         lblErrDocType.Visible = False
         lblErrDocNum.Visible = False
         lblErrSender.Visible = False
+        lblErrorPDNum.Visible = False
+        lblErrLoc.Visible = False
+        lblErrQty.Visible = False
+    End Sub
+
+    Sub hideProdErr()
         lblErrorPDNum.Visible = False
         lblErrLoc.Visible = False
         lblErrQty.Visible = False
@@ -357,46 +270,23 @@
         'MsgBox(senderId)
     End Sub
 
-    Private Sub loadDGV()
-        'q.employeesLoadDGV()
-        q.loadProdDGV(transId)
-        dgvProdDet.ClearSelection()
-        prodId = ""
-        'for adjusting data to display
-        dtSource = q.SQL.DBDT
-        p.fillDgv(cbxPagesize.Text, dtSource)
-        p.LoadPage(dtSource, dgvProdDet, cbxPagesize.Text)
-        p.DisplayPageInfo(lblPage)
 
-        If p.PageCount = 1 Then
-            btnNext.Enabled = False
-            btnLast.Enabled = False
-        Else
-            btnNext.Enabled = True
-            btnLast.Enabled = True
-        End If
-    End Sub
 
     Private Sub recvGoodsTrans_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If e.KeyCode = Keys.Delete Then
-            If prodId <> "" Then
-                Dim result As Integer = MessageBox.Show("Are you sure want to remove?", "Remove Details", MessageBoxButtons.YesNo)
-                If result = DialogResult.No Then
-                    loadDGV()
-                ElseIf result = DialogResult.Yes Then
-                    q.deleteSelectedProd(prodId)
-                    prodId = ""
-                    loadDGV()
-                End If
-            Else
-                MessageBox.Show("No selected items?", "Remove Details")
-                Exit Sub
+
+            Dim result As Integer = MessageBox.Show("Are you sure want to remove?", "Remove Details", MessageBoxButtons.YesNo)
+            If result = DialogResult.No Then
+                '
+            ElseIf result = DialogResult.Yes Then
+                table.Rows.RemoveAt(prodId)
             End If
+
         End If
     End Sub
 
     Private Sub recvGoodsTrans_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-        If transId = "" Then
+        If transId = "" And dgvProdDet.RowCount = 0 Then
             Dim result As Integer = MessageBox.Show("Are you sure want to close?", "Notice", MessageBoxButtons.YesNo)
             If result = DialogResult.No Then
                 e.Cancel = True
@@ -423,4 +313,59 @@
         End If
     End Sub
 
+
+    Sub newDGV()
+        Try
+            With table
+                .Columns.Add("transId", Type.GetType("System.String"))  '0
+                .Columns.Add("PDNO", Type.GetType("System.String"))     '1
+                .Columns.Add("DESCRIPTION", Type.GetType("System.String"))     '2
+                .Columns.Add("bId", Type.GetType("System.String"))       '3
+                .Columns.Add("lId", Type.GetType("System.String"))     '4
+                .Columns.Add("aId", Type.GetType("System.String"))     '5
+                .Columns.Add("BATCH", Type.GetType("System.String"))       '6
+                .Columns.Add("LOCATION", Type.GetType("System.String"))       '7
+                .Columns.Add("QUANTITY", Type.GetType("System.String"))       '9
+            End With
+            With dgvProdDet
+                .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+                .AllowUserToResizeColumns = False
+                .AllowUserToResizeRows = False
+                .AllowUserToAddRows = False
+                .RowTemplate.Height = 30
+                .DataSource = table
+                .Columns(0).Visible = False
+                .Columns(1).Width = 100
+                .Columns(2).Width = 399
+                .Columns(3).Visible = False
+                .Columns(4).Visible = False
+                .Columns(5).Visible = False
+                .Columns(6).Width = 100
+                .Columns(7).Width = 100
+                .Columns(8).Width = 100
+                .ClearSelection()
+            End With
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Sub insertRecvTransToDGV()
+        Try
+            table.Rows.Add(transId, tbxPDno.Text, tbxProdDesc.Text, batchId, locId, mainForm.areaCodeId, tbxBatch.Text, tbxLoc.Text, tbxQty.Text)
+            dgvProdDet.DataSource = table
+            dgvProdDet.ClearSelection()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub dgvProdDet_Click(sender As Object, e As EventArgs) Handles dgvProdDet.Click
+        If dgvProdDet.Rows.Count = 0 Then
+            MessageBox.Show("Please selec valid cell", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Else
+            prodId = dgvProdDet.CurrentCell.RowIndex
+            'MsgBox(prodId)
+        End If
+    End Sub
 End Class

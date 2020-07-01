@@ -2,8 +2,7 @@
 
 Public Class sqlCon
 
-    'Public DBCon As New SqlConnection("Server=127.0.0.1; Database=inv_DB; User=sa; Pwd=p@ssw0rd;")
-    Public DBCon As New SqlConnection("Server=127.0.0.1; Database=inv_DB; User=sa; Pwd=p@ssw0rd;")
+    Public DBCon As New SqlConnection("Server=LAPTOP-EK3FU5PI; Database=inv_DB; User=sa; Pwd=p@ssw0rd;")
     'Public DBCon As New SqlConnection("Server=192.168.0.107; Database=invDB; User=sa; Pwd=p@ssw0rd;")
     'Public DBCon As New SqlConnection("Server=192.168.254.103; Database=invDB; User=sa; Pwd=p@ssw0rd;")
     'Public DBCon As New SqlConnection("Server=192.168.254.103; Database=invDB; User=sa; Pwd=p@ssw0rd;")
