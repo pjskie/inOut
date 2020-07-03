@@ -32,9 +32,9 @@ Partial Class BatchesMain
         Me.tbxBatchAbbrev = New System.Windows.Forms.TextBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.btnAddNew = New System.Windows.Forms.Button()
-        Me.btnSearch = New System.Windows.Forms.Button()
         Me.tbxFilter = New System.Windows.Forms.TextBox()
         Me.lbxBatches = New System.Windows.Forms.ListBox()
+        Me.lblError = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -45,7 +45,7 @@ Partial Class BatchesMain
         Me.GroupBox1.Controls.Add(Me.GroupBox3)
         Me.GroupBox1.Controls.Add(Me.GroupBox2)
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox1.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox1.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(844, 361)
@@ -54,6 +54,7 @@ Partial Class BatchesMain
         '
         'GroupBox3
         '
+        Me.GroupBox3.Controls.Add(Me.lblError)
         Me.GroupBox3.Controls.Add(Me.btnUpdBatch)
         Me.GroupBox3.Controls.Add(Me.btnUpdClear)
         Me.GroupBox3.Controls.Add(Me.Label2)
@@ -69,7 +70,7 @@ Partial Class BatchesMain
         '
         'btnUpdBatch
         '
-        Me.btnUpdBatch.Location = New System.Drawing.Point(243, 270)
+        Me.btnUpdBatch.Location = New System.Drawing.Point(300, 270)
         Me.btnUpdBatch.Name = "btnUpdBatch"
         Me.btnUpdBatch.Size = New System.Drawing.Size(73, 28)
         Me.btnUpdBatch.TabIndex = 8
@@ -78,7 +79,7 @@ Partial Class BatchesMain
         '
         'btnUpdClear
         '
-        Me.btnUpdClear.Location = New System.Drawing.Point(164, 270)
+        Me.btnUpdClear.Location = New System.Drawing.Point(221, 270)
         Me.btnUpdClear.Name = "btnUpdClear"
         Me.btnUpdClear.Size = New System.Drawing.Size(73, 28)
         Me.btnUpdClear.TabIndex = 7
@@ -88,40 +89,39 @@ Partial Class BatchesMain
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(111, 79)
+        Me.Label2.Location = New System.Drawing.Point(25, 85)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(63, 16)
+        Me.Label2.Size = New System.Drawing.Size(80, 20)
         Me.Label2.TabIndex = 10
         Me.Label2.Text = "Description:"
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(111, 37)
+        Me.Label1.Location = New System.Drawing.Point(25, 33)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(78, 16)
+        Me.Label1.Size = New System.Drawing.Size(98, 20)
         Me.Label1.TabIndex = 9
         Me.Label1.Text = "Batch Abbrev.:"
         '
         'tbxBatchDes
         '
-        Me.tbxBatchDes.Location = New System.Drawing.Point(111, 98)
+        Me.tbxBatchDes.Location = New System.Drawing.Point(32, 108)
         Me.tbxBatchDes.Multiline = True
         Me.tbxBatchDes.Name = "tbxBatchDes"
-        Me.tbxBatchDes.Size = New System.Drawing.Size(205, 166)
-        Me.tbxBatchDes.TabIndex = 8
+        Me.tbxBatchDes.Size = New System.Drawing.Size(341, 156)
+        Me.tbxBatchDes.TabIndex = 6
         '
         'tbxBatchAbbrev
         '
-        Me.tbxBatchAbbrev.Location = New System.Drawing.Point(111, 56)
+        Me.tbxBatchAbbrev.Location = New System.Drawing.Point(29, 56)
         Me.tbxBatchAbbrev.Name = "tbxBatchAbbrev"
-        Me.tbxBatchAbbrev.Size = New System.Drawing.Size(205, 22)
-        Me.tbxBatchAbbrev.TabIndex = 7
+        Me.tbxBatchAbbrev.Size = New System.Drawing.Size(344, 26)
+        Me.tbxBatchAbbrev.TabIndex = 5
         '
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.btnAddNew)
-        Me.GroupBox2.Controls.Add(Me.btnSearch)
         Me.GroupBox2.Controls.Add(Me.tbxFilter)
         Me.GroupBox2.Controls.Add(Me.lbxBatches)
         Me.GroupBox2.Location = New System.Drawing.Point(12, 25)
@@ -133,37 +133,39 @@ Partial Class BatchesMain
         '
         'btnAddNew
         '
-        Me.btnAddNew.Location = New System.Drawing.Point(307, 36)
+        Me.btnAddNew.Image = Global.mainForm.My.Resources.Resources.icons8_add_new_24
+        Me.btnAddNew.Location = New System.Drawing.Point(348, 39)
         Me.btnAddNew.Name = "btnAddNew"
-        Me.btnAddNew.Size = New System.Drawing.Size(73, 28)
-        Me.btnAddNew.TabIndex = 6
-        Me.btnAddNew.Text = "Add New"
+        Me.btnAddNew.Size = New System.Drawing.Size(32, 26)
+        Me.btnAddNew.TabIndex = 3
         Me.btnAddNew.UseVisualStyleBackColor = True
-        '
-        'btnSearch
-        '
-        Me.btnSearch.Location = New System.Drawing.Point(228, 36)
-        Me.btnSearch.Name = "btnSearch"
-        Me.btnSearch.Size = New System.Drawing.Size(73, 28)
-        Me.btnSearch.TabIndex = 5
-        Me.btnSearch.Text = "Search"
-        Me.btnSearch.UseVisualStyleBackColor = True
         '
         'tbxFilter
         '
         Me.tbxFilter.Location = New System.Drawing.Point(17, 39)
         Me.tbxFilter.Name = "tbxFilter"
-        Me.tbxFilter.Size = New System.Drawing.Size(205, 22)
-        Me.tbxFilter.TabIndex = 4
+        Me.tbxFilter.Size = New System.Drawing.Size(325, 26)
+        Me.tbxFilter.TabIndex = 1
         '
         'lbxBatches
         '
         Me.lbxBatches.FormattingEnabled = True
-        Me.lbxBatches.ItemHeight = 16
+        Me.lbxBatches.ItemHeight = 20
         Me.lbxBatches.Location = New System.Drawing.Point(5, 79)
         Me.lbxBatches.Name = "lbxBatches"
-        Me.lbxBatches.Size = New System.Drawing.Size(385, 164)
-        Me.lbxBatches.TabIndex = 3
+        Me.lbxBatches.Size = New System.Drawing.Size(385, 224)
+        Me.lbxBatches.TabIndex = 4
+        '
+        'lblError
+        '
+        Me.lblError.AutoSize = True
+        Me.lblError.ForeColor = System.Drawing.Color.Red
+        Me.lblError.Location = New System.Drawing.Point(28, 274)
+        Me.lblError.Name = "lblError"
+        Me.lblError.Size = New System.Drawing.Size(14, 20)
+        Me.lblError.TabIndex = 11
+        Me.lblError.Text = "*"
+        Me.lblError.Visible = False
         '
         'BatchesMain
         '
@@ -171,6 +173,8 @@ Partial Class BatchesMain
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(844, 361)
         Me.Controls.Add(Me.GroupBox1)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "BatchesMain"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Batches"
@@ -193,7 +197,7 @@ Partial Class BatchesMain
     Friend WithEvents tbxBatchAbbrev As TextBox
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents btnAddNew As Button
-    Friend WithEvents btnSearch As Button
     Friend WithEvents tbxFilter As TextBox
     Friend WithEvents lbxBatches As ListBox
+    Friend WithEvents lblError As Label
 End Class

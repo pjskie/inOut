@@ -204,7 +204,7 @@ Public Class qry
     'end
 
     'add batches
-    Public Sub addBatches(txt As String)
+    Public Sub addBatches(txt As String, rmks As String)
         SQL.AddParam("@txt", txt.ToString().ToUpper())
         SQL.ExecQueryDT("SELECT * FROM [dbo].[tbl_batches]
                         WHERE batchDes =  @txt;")
@@ -219,9 +219,10 @@ Public Class qry
             Exit Sub
         Else
             SQL.AddParam("@txt", txt.ToString().ToUpper())
+            SQL.AddParam("@rmks", rmks.ToString())
             SQL.AddParam("@encBy", mainForm.userId)
             SQL.ExecQueryDT("INSERT INTO [dbo].[tbl_batches]
-                            VALUES(@txt,@encBy);")
+                            VALUES(@txt,@encBy,@rmks);")
             If SQL.HasException(True) Then Exit Sub
             With addBatch
                 .lblError.Visible = True
@@ -710,4 +711,55 @@ Public Class qry
         End With
     End Sub
     'end
+
+
+    Public Sub loadLBXBatches(lbx As ListBox, txt As TextBox)
+        SQL.AddParam("@txt", txt.Text & "%")
+        SQL.ExecQueryDT("SELECT batchDes FROM [dbo].[tbl_batches] 
+                         WHERE batchDes LIKE @txt
+                         ORDER BY id DESC;")
+
+        ''REPORT & ABORT SUB ON ERRORS
+        If SQL.HasException(True) Then Exit Sub
+
+        For Each r As DataRow In SQL.DBDT.Rows
+            lbx.Items.Add(r(0))
+        Next
+    End Sub
+
+
+    'fetch batch to the textboxes
+    Public Sub fetchBatchDatas(t As String)
+        SQL.AddParam("@txt", t)
+        SQL.ExecQueryDT("SELECT * FROM tbl_batches
+                         WHERE batchDes = @txt;")
+        If SQL.HasException(True) Then Exit Sub
+        If SQL.RecordCountDT <> 0 Then
+            For Each r As DataRow In SQL.DBDT.Rows
+                With BatchesMain
+                    .tbxBatchAbbrev.Text = r(1)
+                    .tbxBatchDes.Text = r(3)
+                    .id = r(0)
+                    'MsgBox(.id)
+                End With
+            Next
+        End If
+    End Sub
+
+
+    Public Sub updateBatch(abbv As String, des As String, uId As String, id As String)
+        SQL.AddParam("@abbv", abbv)
+        SQL.AddParam("@des", des)
+        SQL.AddParam("@uId", uId)
+        SQL.AddParam("@id", id)
+
+        SQL.ExecQueryDT("UPDATE tbl_batches
+                        SET batchDes = @abbv
+	                        ,encBy = @uId
+	                        ,remarks = @des
+                        WHERE
+	                        id = @id ;")
+        If SQL.HasException(True) Then Exit Sub
+    End Sub
+
 End Class

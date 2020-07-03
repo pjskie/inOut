@@ -344,6 +344,11 @@ Public Class recvGoodsTrans
                 .Columns(7).Width = 100
                 .Columns(8).Width = 100
                 .ClearSelection()
+                .Columns("PDNO").ReadOnly = True
+                .Columns("DESCRIPTION").ReadOnly = True
+                .Columns("BATCH").ReadOnly = True
+                .Columns("LOCATION").ReadOnly = True
+                .Columns("QUANTITY").ReadOnly = False
             End With
         Catch ex As Exception
             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

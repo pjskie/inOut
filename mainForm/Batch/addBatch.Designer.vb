@@ -27,22 +27,26 @@ Partial Class addBatch
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnClearGoods = New System.Windows.Forms.Button()
         Me.btnGoodsAdd = New System.Windows.Forms.Button()
-        Me.tbxBatchDes = New System.Windows.Forms.TextBox()
+        Me.tbxAbbvBatch = New System.Windows.Forms.TextBox()
+        Me.tbxDescBatch = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.Label2)
+        Me.GroupBox1.Controls.Add(Me.tbxDescBatch)
         Me.GroupBox1.Controls.Add(Me.lblError)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.btnClearGoods)
         Me.GroupBox1.Controls.Add(Me.btnGoodsAdd)
-        Me.GroupBox1.Controls.Add(Me.tbxBatchDes)
+        Me.GroupBox1.Controls.Add(Me.tbxAbbvBatch)
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox1.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(350, 228)
+        Me.GroupBox1.Size = New System.Drawing.Size(350, 302)
         Me.GroupBox1.TabIndex = 2
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Add"
@@ -51,7 +55,7 @@ Partial Class addBatch
         '
         Me.lblError.AutoSize = True
         Me.lblError.ForeColor = System.Drawing.Color.Red
-        Me.lblError.Location = New System.Drawing.Point(40, 203)
+        Me.lblError.Location = New System.Drawing.Point(36, 273)
         Me.lblError.Name = "lblError"
         Me.lblError.Size = New System.Drawing.Size(14, 20)
         Me.lblError.TabIndex = 31
@@ -61,17 +65,17 @@ Partial Class addBatch
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(36, 51)
+        Me.Label1.Location = New System.Drawing.Point(36, 24)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(80, 20)
+        Me.Label1.Size = New System.Drawing.Size(85, 20)
         Me.Label1.TabIndex = 30
-        Me.Label1.Text = "Description:"
+        Me.Label1.Text = "Abbrevation:"
         '
         'btnClearGoods
         '
         Me.btnClearGoods.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.btnClearGoods.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnClearGoods.Location = New System.Drawing.Point(173, 137)
+        Me.btnClearGoods.Location = New System.Drawing.Point(173, 219)
         Me.btnClearGoods.Name = "btnClearGoods"
         Me.btnClearGoods.Size = New System.Drawing.Size(108, 38)
         Me.btnClearGoods.TabIndex = 29
@@ -82,25 +86,42 @@ Partial Class addBatch
         '
         Me.btnGoodsAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.btnGoodsAdd.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnGoodsAdd.Location = New System.Drawing.Point(56, 137)
+        Me.btnGoodsAdd.Location = New System.Drawing.Point(56, 219)
         Me.btnGoodsAdd.Name = "btnGoodsAdd"
         Me.btnGoodsAdd.Size = New System.Drawing.Size(108, 38)
         Me.btnGoodsAdd.TabIndex = 28
         Me.btnGoodsAdd.Text = "Add"
         Me.btnGoodsAdd.UseVisualStyleBackColor = True
         '
-        'tbxBatchDes
+        'tbxAbbvBatch
         '
-        Me.tbxBatchDes.Location = New System.Drawing.Point(40, 87)
-        Me.tbxBatchDes.Name = "tbxBatchDes"
-        Me.tbxBatchDes.Size = New System.Drawing.Size(254, 26)
-        Me.tbxBatchDes.TabIndex = 0
+        Me.tbxAbbvBatch.Location = New System.Drawing.Point(40, 47)
+        Me.tbxAbbvBatch.Name = "tbxAbbvBatch"
+        Me.tbxAbbvBatch.Size = New System.Drawing.Size(254, 26)
+        Me.tbxAbbvBatch.TabIndex = 0
+        '
+        'tbxDescBatch
+        '
+        Me.tbxDescBatch.Location = New System.Drawing.Point(40, 99)
+        Me.tbxDescBatch.Multiline = True
+        Me.tbxDescBatch.Name = "tbxDescBatch"
+        Me.tbxDescBatch.Size = New System.Drawing.Size(254, 114)
+        Me.tbxDescBatch.TabIndex = 32
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(36, 76)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(80, 20)
+        Me.Label2.TabIndex = 33
+        Me.Label2.Text = "Description:"
         '
         'addBatch
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(350, 228)
+        Me.ClientSize = New System.Drawing.Size(350, 302)
         Me.Controls.Add(Me.GroupBox1)
         Me.KeyPreview = True
         Me.MaximizeBox = False
@@ -119,5 +140,7 @@ Partial Class addBatch
     Friend WithEvents Label1 As Label
     Friend WithEvents btnClearGoods As Button
     Friend WithEvents btnGoodsAdd As Button
-    Friend WithEvents tbxBatchDes As TextBox
+    Friend WithEvents tbxAbbvBatch As TextBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents tbxDescBatch As TextBox
 End Class

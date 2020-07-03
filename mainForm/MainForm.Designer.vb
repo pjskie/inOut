@@ -40,8 +40,6 @@ Partial Class mainForm
         Me.AddToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.UpdateToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.BatchToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AddToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.UpdateToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.LocationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AddToolStripMenuItem4 = New System.Windows.Forms.ToolStripMenuItem()
         Me.UpdateToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
@@ -70,31 +68,31 @@ Partial Class mainForm
         'ReceiveGoodsToolStripMenuItem
         '
         Me.ReceiveGoodsToolStripMenuItem.Name = "ReceiveGoodsToolStripMenuItem"
-        Me.ReceiveGoodsToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ReceiveGoodsToolStripMenuItem.Size = New System.Drawing.Size(151, 22)
         Me.ReceiveGoodsToolStripMenuItem.Text = "Receive Goods"
         '
         'ReleaseGoodsToolStripMenuItem
         '
         Me.ReleaseGoodsToolStripMenuItem.Name = "ReleaseGoodsToolStripMenuItem"
-        Me.ReleaseGoodsToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ReleaseGoodsToolStripMenuItem.Size = New System.Drawing.Size(151, 22)
         Me.ReleaseGoodsToolStripMenuItem.Text = "Release Goods"
         '
         'StockTransferToolStripMenuItem
         '
         Me.StockTransferToolStripMenuItem.Name = "StockTransferToolStripMenuItem"
-        Me.StockTransferToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.StockTransferToolStripMenuItem.Size = New System.Drawing.Size(151, 22)
         Me.StockTransferToolStripMenuItem.Text = "Stock Transfer"
         '
         'ViewStocksToolStripMenuItem
         '
         Me.ViewStocksToolStripMenuItem.Name = "ViewStocksToolStripMenuItem"
-        Me.ViewStocksToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ViewStocksToolStripMenuItem.Size = New System.Drawing.Size(151, 22)
         Me.ViewStocksToolStripMenuItem.Text = "Stocks"
         '
         'TransactionsToolStripMenuItem
         '
         Me.TransactionsToolStripMenuItem.Name = "TransactionsToolStripMenuItem"
-        Me.TransactionsToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.TransactionsToolStripMenuItem.Size = New System.Drawing.Size(151, 22)
         Me.TransactionsToolStripMenuItem.Text = "Transactions"
         '
         'UtilitiesToolStripMenuItem
@@ -157,22 +155,9 @@ Partial Class mainForm
         '
         'BatchToolStripMenuItem
         '
-        Me.BatchToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddToolStripMenuItem3, Me.UpdateToolStripMenuItem2})
         Me.BatchToolStripMenuItem.Name = "BatchToolStripMenuItem"
         Me.BatchToolStripMenuItem.Size = New System.Drawing.Size(162, 22)
         Me.BatchToolStripMenuItem.Text = "Batch"
-        '
-        'AddToolStripMenuItem3
-        '
-        Me.AddToolStripMenuItem3.Name = "AddToolStripMenuItem3"
-        Me.AddToolStripMenuItem3.Size = New System.Drawing.Size(112, 22)
-        Me.AddToolStripMenuItem3.Text = "Add"
-        '
-        'UpdateToolStripMenuItem2
-        '
-        Me.UpdateToolStripMenuItem2.Name = "UpdateToolStripMenuItem2"
-        Me.UpdateToolStripMenuItem2.Size = New System.Drawing.Size(112, 22)
-        Me.UpdateToolStripMenuItem2.Text = "Update"
         '
         'LocationToolStripMenuItem
         '
@@ -184,13 +169,13 @@ Partial Class mainForm
         'AddToolStripMenuItem4
         '
         Me.AddToolStripMenuItem4.Name = "AddToolStripMenuItem4"
-        Me.AddToolStripMenuItem4.Size = New System.Drawing.Size(112, 22)
+        Me.AddToolStripMenuItem4.Size = New System.Drawing.Size(152, 22)
         Me.AddToolStripMenuItem4.Text = "Add"
         '
         'UpdateToolStripMenuItem3
         '
         Me.UpdateToolStripMenuItem3.Name = "UpdateToolStripMenuItem3"
-        Me.UpdateToolStripMenuItem3.Size = New System.Drawing.Size(112, 22)
+        Me.UpdateToolStripMenuItem3.Size = New System.Drawing.Size(152, 22)
         Me.UpdateToolStripMenuItem3.Text = "Update"
         '
         'DocumentTypesToolStripMenuItem
@@ -250,8 +235,6 @@ Partial Class mainForm
     Friend WithEvents AddToolStripMenuItem2 As ToolStripMenuItem
     Friend WithEvents UpdateToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents BatchToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents AddToolStripMenuItem3 As ToolStripMenuItem
-    Friend WithEvents UpdateToolStripMenuItem2 As ToolStripMenuItem
     Friend WithEvents LocationToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AddToolStripMenuItem4 As ToolStripMenuItem
     Friend WithEvents UpdateToolStripMenuItem3 As ToolStripMenuItem

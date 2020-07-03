@@ -85,11 +85,11 @@ Public Class mainForm
         addAreas.Show()
     End Sub
 
-    Private Sub AddToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles AddToolStripMenuItem3.Click
-        closeForms()
-        addBatch.MdiParent = Me
-        addBatch.Show()
-    End Sub
+    'Private Sub AddToolStripMenuItem3_Click(sender As Object, e As EventArgs)
+    '    closeForms()
+    '    addBatch.MdiParent = Me
+    '    addBatch.Show()
+    'End Sub
 
     Private Sub AddToolStripMenuItem4_Click(sender As Object, e As EventArgs) Handles AddToolStripMenuItem4.Click
         closeForms()
@@ -102,4 +102,11 @@ Public Class mainForm
         viewStocks.MdiParent = Me
         viewStocks.Show()
     End Sub
+
+    Private Sub BatchToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BatchToolStripMenuItem.Click
+        closeForms()
+        BatchesMain.MdiParent = Me
+        BatchesMain.Show()
+    End Sub
+
 End Class
