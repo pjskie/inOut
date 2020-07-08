@@ -90,6 +90,7 @@
             btnLast.Enabled = True
         End If
     End Sub
+
     'for Paging
     Private Sub btnFirst_Click(sender As Object, e As EventArgs) Handles btnFirst.Click
         dtSource = q.SQL.DBDT
@@ -132,4 +133,5 @@
         cbxPagesize.SelectedIndex = 2 'set page size to 10
         loadDGVNonFilter()
     End Sub
+
 End Class

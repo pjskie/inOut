@@ -5,7 +5,7 @@ Public Class recvGoodsTrans
     Private p As New dgvPaging
     Private table As New DataTable("Table")
     'hold the id of the details 
-    Public prodId As String = ""
+    Public prodId As Integer
     'hold the batch id
     Public batchId As String = ""
     'hold the location id
@@ -26,8 +26,11 @@ Public Class recvGoodsTrans
         tbxDocEntry.Text = "" 'set temporarily doc entry as 000
         loadTbxBatch() 'autosuggest tbx batch
         loadTbxLoc() 'autosugget tbx loc
+        loadTbxProdNo() 'autosugest tbx PDNO
+        loadTbxProdDes() 'autosuggest tbx pd des
         q.cbxSender(cbxSender) 'load combobox list of senders
-        q.cbxDocType(cbxRefDocType) 'load combobx list of document types
+        loadtbxRefDocType()
+        'q.cbxDocType(cbxRefDocType) 'load combobx list of document types
     End Sub
 
     'number only in reference doc number
@@ -59,11 +62,11 @@ Public Class recvGoodsTrans
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         If transId <> "" And dgvProdDet.Rows.Count <> 0 Then
-            If cbxRefDocType.SelectedIndex = -1 Or cbxSender.SelectedIndex = -1 Or tbxSenderName.Text = "" Or tbxRefDocNum.Text = "" Then
+            If tbxRefDocType.Text = "" Or cbxSender.SelectedIndex = -1 Or tbxSenderName.Text = "" Or tbxRefDocNum.Text = "" Then
                 lblError.Visible = True
                 lblError.Text = "Fields with '*' are required!"
 
-                If cbxRefDocType.SelectedIndex = -1 Then
+                If tbxRefDocType.Text = "" Then
                     lblErrDocType.Visible = True
                 Else
                     lblErrDocType.Visible = False
@@ -98,7 +101,7 @@ Public Class recvGoodsTrans
                 table.Clear()
                 Me.transId = ""
                 dtpDocDate.Value = Now()
-                cbxRefDocType.SelectedIndex = -1
+                tbxRefDocType.Text = ""
                 docTypeId = ""
                 cbxSender.SelectedIndex = -1
                 senderId = ""
@@ -118,12 +121,12 @@ Public Class recvGoodsTrans
         End If
     End Sub
 
-    Private Sub tbxPDno_TextChanged(sender As Object, e As EventArgs) Handles tbxPDno.TextChanged
-        q.fetchProdDesc(tbxPDno.Text)
-        If String.IsNullOrWhiteSpace(tbxProdDesc.Text) Then
-            tbxPDno.Text = ""
-        End If
-    End Sub
+    'Private Sub tbxPDno_TextChanged(sender As Object, e As EventArgs) Handles tbxPDno.TextChanged
+    '    q.fetchProdDesc(tbxPDno.Text)
+    '    If String.IsNullOrWhiteSpace(tbxProdDesc.Text) Then
+    '        tbxPDno.Text = ""
+    '    End If
+    'End Sub
 
     Private Sub btnAddBatch_Click(sender As Object, e As EventArgs) Handles btnAddBatch.Click
         mainForm.Enabled = False
@@ -173,6 +176,57 @@ Public Class recvGoodsTrans
         locId = q.validateLoc(tbxLoc.Text)
     End Sub
 
+    Sub loadTbxProdDes()
+        With tbxProdDesc
+            .Text = ""
+            .Refresh()
+            .AutoCompleteMode = AutoCompleteMode.SuggestAppend
+            .AutoCompleteSource = AutoCompleteSource.CustomSource
+            Dim colPDDes As New AutoCompleteStringCollection()
+            q.populatePDDesTbx(colPDDes)
+            .AutoCompleteCustomSource = colPDDes
+            '.Text = "Bullshit"
+        End With
+    End Sub
+
+    Sub loadtbxRefDocType()
+        With tbxRefDocType
+            .Text = ""
+            .Refresh()
+            .AutoCompleteMode = AutoCompleteMode.SuggestAppend
+            .AutoCompleteSource = AutoCompleteSource.CustomSource
+            Dim colRefDoc As New AutoCompleteStringCollection()
+            q.populateTbxRefDocType(colRefDoc)
+            .AutoCompleteCustomSource = colRefDoc
+            '.Text = "Bullshit"
+        End With
+    End Sub
+
+    Private Sub tbxRefDocType_Leave(sender As Object, e As EventArgs) Handles tbxRefDocType.Leave
+        docTypeId = q.getRefDoctype(tbxRefDocType.Text)
+        MsgBox(docTypeId)
+    End Sub
+
+    Private Sub tbxProdDesc_Leave(sender As Object, e As EventArgs) Handles tbxProdDesc.Leave
+        q.fetchPDNOTbxDes(tbxProdDesc.Text)
+    End Sub
+
+    Sub loadTbxProdNo()
+        With tbxPDno
+            .Text = ""
+            .Refresh()
+            .AutoCompleteMode = AutoCompleteMode.SuggestAppend
+            .AutoCompleteSource = AutoCompleteSource.CustomSource
+            Dim colPDNO As New AutoCompleteStringCollection()
+            q.populatetbxPDNO(colPDNO)
+            .AutoCompleteCustomSource = colPDNO
+            '.Text = "Bullshit"
+        End With
+    End Sub
+
+    Private Sub tbxPDno_Leave(sender As Object, e As EventArgs) Handles tbxPDno.Leave
+        q.fetchtbxPDNO(tbxPDno.Text)
+    End Sub
     Private Sub btnAddProdtoDgv_Click(sender As Object, e As EventArgs) Handles btnAddProdtoDgv.Click
         If String.IsNullOrWhiteSpace(tbxDocEntry.Text) And transId = "" Then
             If String.IsNullOrWhiteSpace(tbxPDno.Text) Or String.IsNullOrWhiteSpace(tbxLoc.Text) Or String.IsNullOrWhiteSpace(tbxQty.Text) Then
@@ -204,9 +258,12 @@ Public Class recvGoodsTrans
                 'MsgBox("Add this one")
                 'insertRecvTransToDGV()
                 tbxPDno.Text = ""
+                tbxProdDesc.Text = ""
                 tbxBatch.Text = ""
                 tbxLoc.Text = ""
                 tbxQty.Text = ""
+                batchId = ""
+                locId = ""
             End If
         ElseIf Not String.IsNullOrWhiteSpace(tbxDocEntry.Text) And transId <> "" Then
             If String.IsNullOrWhiteSpace(tbxPDno.Text) Or String.IsNullOrWhiteSpace(tbxLoc.Text) Or String.IsNullOrWhiteSpace(tbxQty.Text) Then
@@ -235,9 +292,12 @@ Public Class recvGoodsTrans
                 hideAllErrLbls()
                 insertRecvTransToDGV()
                 tbxPDno.Text = ""
+                tbxProdDesc.Text = ""
                 tbxBatch.Text = ""
                 tbxLoc.Text = ""
                 tbxQty.Text = ""
+                batchId = ""
+                locId = ""
             End If
         Else
             'do nothing
@@ -260,10 +320,10 @@ Public Class recvGoodsTrans
         lblErrQty.Visible = False
     End Sub
 
-    Private Sub cbxRefDocType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbxRefDocType.SelectedIndexChanged
-        docTypeId = q.fetchRefDocType(cbxRefDocType.Text)
-        'MsgBox(docTypeId)
-    End Sub
+    'Private Sub cbxRefDocType_SelectedIndexChanged(sender As Object, e As EventArgs)
+    '    docTypeId = q.fetchRefDocType(cbxRefDocType.Text)
+    '    'MsgBox(docTypeId)
+    'End Sub
 
     Private Sub cbxSender_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbxSender.SelectedIndexChanged
         senderId = q.fetchSenderId(cbxSender.Text)
@@ -313,7 +373,6 @@ Public Class recvGoodsTrans
         End If
     End Sub
 
-
     Sub newDGV()
         Try
             With table
@@ -335,14 +394,14 @@ Public Class recvGoodsTrans
                 .RowTemplate.Height = 30
                 .DataSource = table
                 .Columns(0).Visible = False
-                .Columns(1).Width = 100
-                .Columns(2).Width = 399
+                .Columns(1).Width = 80
+                .Columns(2).Width = 299
                 .Columns(3).Visible = False
                 .Columns(4).Visible = False
                 .Columns(5).Visible = False
-                .Columns(6).Width = 100
-                .Columns(7).Width = 100
-                .Columns(8).Width = 100
+                .Columns(6).Width = 80
+                .Columns(7).Width = 80
+                .Columns(8).Width = 80
                 .ClearSelection()
                 .Columns("PDNO").ReadOnly = True
                 .Columns("DESCRIPTION").ReadOnly = True
@@ -365,7 +424,7 @@ Public Class recvGoodsTrans
         End Try
     End Sub
 
-    Private Sub dgvProdDet_Click(sender As Object, e As EventArgs) Handles dgvProdDet.Click
+    Private Sub dgvProdDet_Click(sender As Object, e As EventArgs)
         If dgvProdDet.Rows.Count = 0 Then
             MessageBox.Show("Please selec valid cell", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Else
@@ -373,4 +432,17 @@ Public Class recvGoodsTrans
             'MsgBox(prodId)
         End If
     End Sub
+
+
+
+
+
+    'Private Sub tbxProdDesc_Leave(sender As Object, e As EventArgs) Handles tbxProdDesc.Leave
+    '    q.fetchProdPDNO(tbxProdDesc.Text)
+    '    If String.IsNullOrWhiteSpace(tbxPDno.Text) Then
+    '        tbxPDno.Text = ""
+    '        tbxProdDesc.Text = ""
+    '    End If
+    'End Sub
+
 End Class

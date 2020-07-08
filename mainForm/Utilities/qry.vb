@@ -188,7 +188,7 @@ Public Class qry
     End Sub
     'end
 
-    'fetch product no
+    'fetch product des
     Public Sub fetchProdDesc(id As String)
         SQL.AddParam("@id", id)
         SQL.ExecQueryDT("SELECT goodDes FROM [dbo].[tbl_goods] WHERE id = @id;")
@@ -199,6 +199,21 @@ Public Class qry
             Next
         Else
             recvGoodsTrans.tbxProdDesc.Text = ""
+        End If
+    End Sub
+    'end
+
+    'fetch product no
+    Public Sub fetchProdPDNO(id As String)
+        SQL.AddParam("@id", id)
+        SQL.ExecQueryDT("SELECT id FROM [dbo].[tbl_goods] WHERE goodDes = @id;")
+        If SQL.HasException(True) Then Exit Sub
+        If SQL.RecordCountDT > 0 Then
+            For Each r As DataRow In SQL.DBDT.Rows
+                recvGoodsTrans.tbxPDno.Text = r(0)
+            Next
+        Else
+            recvGoodsTrans.tbxPDno.Text = ""
         End If
     End Sub
     'end
@@ -305,8 +320,9 @@ Public Class qry
 
             ElseIf .isAdmin = False Then
                 SQL.AddParam("@aId", .areaCodeId)
-                SQL.ExecQueryDT("SELECT locationDes FROM tbl_locations
-                        WHERE area_id = @aId;")
+                'SQL.ExecQueryDT("SELECT locationDes FROM tbl_locations
+                '        WHERE area_id = @aId;")
+                SQL.ExecQueryDT("SELECT locationDes FROM tbl_locations;")
                 If SQL.HasException(True) Then Exit Sub
                 If SQL.RecordCountDT > 0 Then
                     For Each r As DataRow In SQL.DBDT.Rows
@@ -319,14 +335,176 @@ Public Class qry
     End Sub
     'end
 
+    'populate prod des textbox
+    Public Sub populatePDDesTbx(ByVal d As AutoCompleteStringCollection)
+        With mainForm
+            If .isAdmin = True Then
+
+            ElseIf .isAdmin = False Then
+                SQL.AddParam("@aId", .areaCodeId)
+                'SQL.ExecQueryDT("SELECT locationDes FROM tbl_locations
+                '        WHERE area_id = @aId;")
+                SQL.ExecQueryDT("SELECT goodDes FROM tbl_goods;")
+                If SQL.HasException(True) Then Exit Sub
+                If SQL.RecordCountDT > 0 Then
+                    For Each r As DataRow In SQL.DBDT.Rows
+                        d.Add(r(0)).ToString()
+                    Next
+                End If
+            End If
+        End With
+    End Sub
+    'end
+
+    'populate prodno textbox
+    Public Sub populatetbxPDNO(ByVal d As AutoCompleteStringCollection)
+        With mainForm
+            If .isAdmin = True Then
+
+            ElseIf .isAdmin = False Then
+                SQL.AddParam("@aId", .areaCodeId)
+                'SQL.ExecQueryDT("SELECT locationDes FROM tbl_locations
+                '        WHERE area_id = @aId;")
+                SQL.ExecQueryDT("SELECT id from tbl_goods;")
+                If SQL.HasException(True) Then Exit Sub
+                If SQL.RecordCountDT > 0 Then
+                    For Each r As DataRow In SQL.DBDT.Rows
+                        d.Add(r(0)).ToString()
+                    Next
+                End If
+            End If
+        End With
+    End Sub
+    'end
+
+    'populate prodno textbox
+    Public Sub populateTbxRefDocType(ByVal d As AutoCompleteStringCollection)
+        With mainForm
+            If .isAdmin = True Then
+
+            ElseIf .isAdmin = False Then
+                SQL.AddParam("@aId", .areaCodeId)
+                'SQL.ExecQueryDT("SELECT locationDes FROM tbl_locations
+                '        WHERE area_id = @aId;")
+                SQL.ExecQueryDT("SELECT docDesc FROM tbl_documentTypes;")
+                If SQL.HasException(True) Then Exit Sub
+                If SQL.RecordCountDT > 0 Then
+                    For Each r As DataRow In SQL.DBDT.Rows
+                        d.Add(r(0)).ToString()
+                    Next
+                End If
+            End If
+        End With
+    End Sub
+    'end
+
+    'fetch pdno and descrip if leaving the tbxprodes
+    Public Sub fetchPDNOTbxDes(t As String)
+        SQL.AddParam("@txt", t)
+        SQL.ExecQueryDT("SELECT * FROM tbl_goods
+                        WHERE goodDes = @txt;")
+        If SQL.HasException(True) Then Exit Sub
+        If SQL.RecordCountDT > 0 Then
+            For Each r As DataRow In SQL.DBDT.Rows
+                With recvGoodsTrans
+                    .tbxPDno.Text = ""
+                    .tbxProdDesc.Text = ""
+                    .tbxPDno.Text = r(0)
+                    .tbxProdDesc.Text = r(1)
+                End With
+            Next
+        Else
+            With recvGoodsTrans
+                .tbxPDno.Text = ""
+                .tbxProdDesc.Text = ""
+            End With
+        End If
+
+    End Sub
+    'end
+
+    'fetch pdno and descrip if leaving the tbxprodes
+    Public Sub fetchtbxPDNO(t As String)
+        SQL.AddParam("@txt", t)
+        SQL.ExecQueryDT("SELECT * FROM tbl_goods
+                        WHERE id = @txt;")
+        If SQL.HasException(True) Then Exit Sub
+        If SQL.RecordCountDT > 0 Then
+            For Each r As DataRow In SQL.DBDT.Rows
+                With recvGoodsTrans
+                    .tbxPDno.Text = ""
+                    .tbxProdDesc.Text = ""
+                    .tbxPDno.Text = r(0)
+                    .tbxProdDesc.Text = r(1)
+                End With
+            Next
+        Else
+            With recvGoodsTrans
+                .tbxPDno.Text = ""
+                .tbxProdDesc.Text = ""
+            End With
+        End If
+
+    End Sub
+    'end
+
+    ''fetch pdno and descrip if leaving the tbxprodes
+    'Public Sub getRefDoctype(t As String)
+    '    SQL.AddParam("@txt", t)
+    '    SQL.ExecQueryDT("SELECT id FROM tbl_documentTypes
+    '                    WHERE docDesc = 
+    '                    @txt;")
+    '    If SQL.HasException(True) Then Exit Sub
+    '    If SQL.RecordCountDT > 0 Then
+    '        For Each r As DataRow In SQL.DBDT.Rows
+    '            With recvGoodsTrans
+    '                .tbxRefDocType.Text = ""
+    '                .tbxRefDocType.Text = r(0)
+    '            End With
+    '        Next
+    '    Else
+    '        With recvGoodsTrans
+    '            .tbxRefDocType.Text = ""
+    '        End With
+    '    End If
+    'End Sub
+    ''end
+
+    'check if the loc is valid
+    Public Function getRefDoctype(ByVal s As String)
+        Dim id As String = ""
+
+        SQL.AddParam("@txt", s)
+        SQL.ExecQueryDT("SELECT id FROM tbl_documentTypes
+                            WHERE docDesc = 
+                            @txt;")
+        If SQL.HasException(True) Then Return Nothing
+
+        If SQL.RecordCountDT > 0 Then
+            For Each r As DataRow In SQL.DBDT.Rows
+                id = ""
+                id = r(0)
+            Next
+        Else
+            With recvGoodsTrans
+                .tbxRefDocType.Text = ""
+                id = ""
+            End With
+        End If
+
+        Return id
+    End Function
+
     'check if the loc is valid
     Public Function validateLoc(ByVal s As String)
         Dim id As String = ""
 
         SQL.AddParam("@s", s)
         SQL.AddParam("@aId", mainForm.areaCodeId)
+        'SQL.ExecQueryDT("SELECT id FROM tbl_locations
+        '                        WHERE locationDes = @s AND area_id = @aId;")
         SQL.ExecQueryDT("SELECT id FROM tbl_locations
-                                WHERE locationDes = @s AND area_id = @aId;")
+                                WHERE locationDes = @s;")
         If SQL.HasException(True) Then Return Nothing
 
         If SQL.RecordCountDT > 0 Then

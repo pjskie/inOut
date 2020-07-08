@@ -21,7 +21,13 @@ Public Class mainForm
     End Sub
 
     Private Sub mainForm_Load(sender As Object, e As EventArgs) Handles Me.Load
+        If roleId = 1 Then
+            UtilitiesToolStripMenuItem.Visible = True
+        ElseIf roleId = 2 Then
+            UtilitiesToolStripMenuItem.Visible = False
+        Else
 
+        End If
     End Sub
 
 

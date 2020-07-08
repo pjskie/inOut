@@ -74,7 +74,7 @@ Partial Class viewStocks
         'lblPage
         '
         Me.lblPage.AutoSize = True
-        Me.lblPage.Location = New System.Drawing.Point(1130, 649)
+        Me.lblPage.Location = New System.Drawing.Point(1112, 648)
         Me.lblPage.Name = "lblPage"
         Me.lblPage.Size = New System.Drawing.Size(46, 20)
         Me.lblPage.TabIndex = 27
@@ -90,7 +90,7 @@ Partial Class viewStocks
         'btnLast
         '
         Me.btnLast.Image = Global.mainForm.My.Resources.Resources.icons8_fast_forward_30
-        Me.btnLast.Location = New System.Drawing.Point(1074, 645)
+        Me.btnLast.Location = New System.Drawing.Point(1056, 644)
         Me.btnLast.Name = "btnLast"
         Me.btnLast.Size = New System.Drawing.Size(50, 28)
         Me.btnLast.TabIndex = 29
@@ -108,7 +108,7 @@ Partial Class viewStocks
         'btnPrevious
         '
         Me.btnPrevious.Image = Global.mainForm.My.Resources.Resources.icons8_sort_left_30
-        Me.btnPrevious.Location = New System.Drawing.Point(962, 645)
+        Me.btnPrevious.Location = New System.Drawing.Point(944, 644)
         Me.btnPrevious.Name = "btnPrevious"
         Me.btnPrevious.Size = New System.Drawing.Size(50, 28)
         Me.btnPrevious.TabIndex = 26
@@ -126,7 +126,7 @@ Partial Class viewStocks
         'btnNext
         '
         Me.btnNext.Image = Global.mainForm.My.Resources.Resources.icons8_sort_right_30
-        Me.btnNext.Location = New System.Drawing.Point(1018, 645)
+        Me.btnNext.Location = New System.Drawing.Point(1000, 644)
         Me.btnNext.Name = "btnNext"
         Me.btnNext.Size = New System.Drawing.Size(50, 28)
         Me.btnNext.TabIndex = 28
@@ -136,7 +136,7 @@ Partial Class viewStocks
         '
         Me.cbxPagesize.FormattingEnabled = True
         Me.cbxPagesize.Items.AddRange(New Object() {"1", "5", "10", "20", "50", "100"})
-        Me.cbxPagesize.Location = New System.Drawing.Point(850, 645)
+        Me.cbxPagesize.Location = New System.Drawing.Point(832, 644)
         Me.cbxPagesize.Name = "cbxPagesize"
         Me.cbxPagesize.Size = New System.Drawing.Size(50, 28)
         Me.cbxPagesize.TabIndex = 24
@@ -155,7 +155,7 @@ Partial Class viewStocks
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(772, 649)
+        Me.Label7.Location = New System.Drawing.Point(754, 648)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(81, 20)
         Me.Label7.TabIndex = 23
@@ -164,7 +164,7 @@ Partial Class viewStocks
         'btnFirst
         '
         Me.btnFirst.Image = Global.mainForm.My.Resources.Resources.icons8_rewind_30
-        Me.btnFirst.Location = New System.Drawing.Point(906, 645)
+        Me.btnFirst.Location = New System.Drawing.Point(888, 644)
         Me.btnFirst.Name = "btnFirst"
         Me.btnFirst.Size = New System.Drawing.Size(50, 28)
         Me.btnFirst.TabIndex = 25
@@ -180,7 +180,7 @@ Partial Class viewStocks
         Me.MinimizeBox = False
         Me.Name = "viewStocks"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Stocks"
+        Me.Text = "Products"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.dgvStocks, System.ComponentModel.ISupportInitialize).EndInit()
